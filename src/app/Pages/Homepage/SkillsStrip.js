@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Container, Grid2, Paper, SvgIcon, Typography } from "@mui/material";
-import { globalstyles } from "../globalStyles";
+import { Grid2, Typography, useMediaQuery, useTheme } from "@mui/material";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,6 +7,8 @@ import Image from "next/image";
 
 export default function SkillsStrip() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const them = useTheme();
+  const isSmartphone = useMediaQuery(them.breakpoints.down("md"));
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -19,7 +20,6 @@ export default function SkillsStrip() {
     { image: "./rct.svg", information: "ReactJS" },
     { image: "./js.svg", information: "JavaScript" },
     { image: "./nodejs.svg", information: "Node.js" },
-    { image: "./gcp.svg", information: "Google Cloud Platform" },
     { image: "./python.svg", information: "Python" },
     { image: "./java.svg", information: "Java" },
     { image: "./html5.svg", information: "HTML 5" },
@@ -27,6 +27,7 @@ export default function SkillsStrip() {
     { image: "./css.svg", information: "CSS 3" },
     { image: "./material.svg", information: "Material UI" },
     { image: "./postman.svg", information: "Postman" },
+    { image: "./gcp.svg", information: "Google Cloud Platform" },
   ];
   const styles = {
     contianer: {
@@ -55,7 +56,37 @@ export default function SkillsStrip() {
         padding: "8px",
       }}
     >
-      {isVisible ? (
+      {isSmartphone ? (
+        <Grid2 container justifyContent={"space-between"}>
+          {data.map((item, index) => (
+            <Grid2
+              sx={{
+                display: "flex ",
+                flexFlow: "row",
+                alignItems: "center",
+                paddingY: "3px ",
+                paddingX: "10px",
+                marginBottom: "15px",
+                borderRadius: "10px",
+                // justifyContent: "space-between",
+              }}
+              key={index}
+            >
+              <Image
+                src={item.image}
+                width={25}
+                height={25}
+                priority
+                style={{ marginRight: "8px" }}
+                alt={item.information}
+              />
+              <Typography sx={{ fontSize: "12px" }}>
+                {item.information}
+              </Typography>
+            </Grid2>
+          ))}
+        </Grid2>
+      ) : isVisible ? (
         <Slider {...settings}>
           {data.map((item, index) => (
             <Grid2
