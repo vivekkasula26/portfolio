@@ -91,6 +91,7 @@ export default function ClientLayout({ children }) {
                   color: "#18181b",
                   fontSize: "24px",
                   fontWeight: "bold",
+                  cursor: "pointer",
                 }}
               >
                 Portfolio
